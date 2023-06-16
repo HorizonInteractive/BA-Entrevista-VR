@@ -33,15 +33,6 @@ public class QuestionPanel : MonoBehaviour
 
     IEnumerator AnimateQuestion()
     {
-        if(transform.localScale.x > 0)
-        {
-            LeanTween.scale(gameObject, Vector3.zero, 0.4f).setEaseOutCubic();
-            foreach (AnswerButton button in answerButtons)
-            {
-                LeanTween.scale(button.gameObject, Vector3.zero, 0.4f).setEaseOutCubic();
-            }
-            yield return new WaitForSeconds(0.6f);
-        }
         UpdateAnswers();
         LeanTween.scale(gameObject, Vector3.one, 0.5f).setEaseOutCubic();
         yield return new WaitForSeconds(0.4f);
@@ -55,5 +46,15 @@ public class QuestionPanel : MonoBehaviour
             LeanTween.scale(button.gameObject, Vector3.one, 0.4f).setEaseOutCubic();
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public IEnumerator HideAnswers()
+    {
+        LeanTween.scale(gameObject, Vector3.zero, 0.4f).setEaseOutCubic();
+        foreach (AnswerButton button in answerButtons)
+        {
+            LeanTween.scale(button.gameObject, Vector3.zero, 0.4f).setEaseOutCubic();
+        }
+        yield return new WaitForSeconds(0.6f);
     }
 }
