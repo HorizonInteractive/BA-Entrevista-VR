@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 [Serializable]
 public class Question
@@ -9,6 +10,8 @@ public class Question
     public Question(string description, Answer[] answers)
     {
         this.description = description;
-        this.answers = answers;
+
+        var rng = new Random();
+        this.answers = answers.OrderBy(e => rng.NextDouble()).ToArray();
     }
 }
