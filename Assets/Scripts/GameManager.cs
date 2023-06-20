@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [Serializable]
 public class QuestionObject
@@ -10,6 +11,8 @@ public class QuestionObject
     public string right;
     public string neutral;
     public string wrong;
+    public SECTION category;
+    public bool bonus;
 }
 
 [Serializable]
@@ -37,8 +40,24 @@ public class GameManager : MonoBehaviour
 
     private Answer selectedAnswer;
 
-    private void Start()
+    public TextMeshProUGUI scoreText;
+    private int score;
+    public int Score
     {
+        get
+        {
+            return score;
+        }
+        set
+        {
+            score = value + (questionPanel.Question.bonus ? 1 : 0);
+            scoreText.text = score.ToString();
+        }
+    }
+
+    public void StartQuestions()
+    {
+        print("in the end");
         materialBoti = boti.GetComponent<Renderer>().material;
         originalColor = materialBoti.color;
 
@@ -46,7 +65,9 @@ public class GameManager : MonoBehaviour
         var parsedQuestions = JsonUtility.FromJson<RootObject>("{\"questions\":" + jsonQuestions.text + "}");
         foreach (var question in parsedQuestions.questions)
         {
-            questions.Enqueue(new Question(question.question, new Answer[] { new Answer(question.right, Type.right), new Answer(question.neutral, Type.neutral), new Answer(question.wrong, Type.wrong)}));
+            print(question.category);
+            if (!(question.category == SECTION.Generic || question.category == LevelSelection.selectedSection)) continue;
+            questions.Enqueue(new Question(question.question, new Answer[] { new Answer(question.right, Type.right), new Answer(question.neutral, Type.neutral), new Answer(question.wrong, Type.wrong)}, question.bonus, question.category));
         }
         NextQuestion();
     }
@@ -88,15 +109,18 @@ public class GameManager : MonoBehaviour
         {
             case Type.right:
                 LeanTween.value(gameObject, setColorCallback, originalColor, Color.green, .5f);
+                Score++;
                 print("Color Green");
                 break;
             case Type.neutral:
                 LeanTween.value(gameObject, setColorCallback, originalColor, Color.blue, .5f);
                 print("Color Blue");
+                Score += 0;
                 break;
             case Type.wrong:
                 LeanTween.value(gameObject, setColorCallback, originalColor, Color.red, .5f);
                 print("Color Red");
+                Score--;
                 break;
             default:
                 break;
