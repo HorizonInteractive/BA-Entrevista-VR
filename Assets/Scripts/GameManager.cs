@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Xml.Linq;
 
 [Serializable]
 public class QuestionObject
@@ -24,6 +25,8 @@ public class RootObject
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     public QuestionPanel questionPanel;
 
     public GameObject boti;
@@ -32,13 +35,10 @@ public class GameManager : MonoBehaviour
 
     private Queue<Question> questions = new();
 
-    [SerializeField]
-    private float timeToSelect = 0.5f;
-
-    private float selectTimer;
-    private bool holding;
-
     private Answer selectedAnswer;
+
+    public GameObject[] UiElements;
+    public GameObject loadingUI;
 
     public TextMeshProUGUI scoreText;
     private int score;
@@ -55,9 +55,45 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartQuestions()
+    private void Awake()
     {
-        print("in the end");
+        if (instance == null)
+        {
+            instance = this;
+        } else
+        {
+            Destroy(this);
+        }
+    }
+
+    public IEnumerator HideAnswers()
+    {
+        foreach (GameObject element in UiElements)
+        {
+            LeanTween.scale(element, Vector3.zero, 0.4f).setEaseOutCubic();
+        }
+        yield return new WaitForSeconds(0.4f);
+        LeanTween.scale(loadingUI, Vector3.one, 0.6f).setEaseOutCubic();
+    }
+
+    public IEnumerator ShowAnswers()
+    {
+        LeanTween.scale(loadingUI, Vector3.zero, 0.4f).setEaseOutCubic();
+        yield return new WaitForSeconds(0.4f);
+        foreach (GameObject button in UiElements)
+        {
+            LeanTween.scale(button, Vector3.one, 0.6f).setEaseOutCubic();
+        }
+    }
+
+    public void InitiateGame()
+    {
+        StartCoroutine(StartQuestions());
+    }
+
+    public IEnumerator StartQuestions()
+    {
+        yield return new WaitForSeconds(5f);
         materialBoti = boti.GetComponent<Renderer>().material;
         originalColor = materialBoti.color;
 
@@ -74,37 +110,27 @@ public class GameManager : MonoBehaviour
 
     public void NextQuestion()
     {
-        if(questions.Count > 0)
+        if (questions.Count > 0)
         {
             questionPanel.Question = questions.Dequeue();
         }
     }
 
-    private void Update()
-    {
-        if (holding)
-        {
-            selectTimer += Time.deltaTime;
-            if(selectTimer > timeToSelect)
-            {
-                StartCoroutine(CheckAnswer(selectedAnswer));
-                holding = false;
-            }
-        }
-    }
-
-    public void PointerDown(AnswerButton answer) {
-        holding = true;
+    public void SelectAnswer(AnswerButton answer) {
         selectedAnswer = answer.Answer;
     }
-    public void PointerUp() {
-        holding = false;
-        selectTimer = 0;
+
+    public void ConfirmAnswer()
+    {
+        if (LeanTween.isTweening(loadingUI) || selectedAnswer == null) return;
+        StartCoroutine(CheckAnswer(selectedAnswer));
     }
 
     private IEnumerator CheckAnswer(Answer answer)
     {
-        StartCoroutine(questionPanel.HideAnswers());
+        questionPanel.HideQuestion();
+        StartCoroutine(HideAnswers());
+        yield return new WaitForSeconds(1f);
         switch (answer.type)
         {
             case Type.right:
@@ -125,7 +151,8 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
-        yield return new WaitForSeconds(1f);
+        selectedAnswer = null;
+        yield return new WaitForSeconds(3f);
         LeanTween.value(gameObject, setColorCallback, materialBoti.color, originalColor, .5f);
         yield return new WaitForSeconds(1f);
         NextQuestion();

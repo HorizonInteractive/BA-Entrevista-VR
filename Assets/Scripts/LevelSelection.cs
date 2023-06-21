@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum SECTION
 {
@@ -12,9 +13,10 @@ public enum SECTION
 }
 public class LevelSelection : MonoBehaviour
 {
-    public GameManager gameManager;
 
     public GameObject[] genericItems;
+    public Button continueButton;
+    public GameObject gameCanvas;
 
     public GameObject[] gastronomyItems;
     public GameObject[] itItems;
@@ -23,15 +25,17 @@ public class LevelSelection : MonoBehaviour
 
     public GameObject[] itemsToDisable;
 
-    public static SECTION selectedSection = SECTION.IT;
+    public static SECTION selectedSection = SECTION.Generic;
 
     public void SelectSection(int section)
     {
         selectedSection = (SECTION)section;
+        continueButton.interactable = true;
     }
 
     public void ConfirmSelection()
     {
+        if (selectedSection == SECTION.Generic) return;
         switch (selectedSection)
         {
             case SECTION.Gastronomy:
@@ -49,6 +53,8 @@ public class LevelSelection : MonoBehaviour
             default:
                 break;
         }
+        gameCanvas.SetActive(true);
+        transform.parent.gameObject.SetActive(false);
     }
 
     private void enableObjects(GameObject[] items)
@@ -66,6 +72,6 @@ public class LevelSelection : MonoBehaviour
         {
             item.SetActive(false);
         }
-        gameManager.StartQuestions();
+        GameManager.instance.InitiateGame();
     }
 }
