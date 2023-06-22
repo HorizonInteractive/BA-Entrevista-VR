@@ -1413,6 +1413,7 @@ GameObject:
   m_Component:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
+  - component: {fileID: 705507996}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1497,6 +1498,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &705507996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705507993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &804925973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2810,7 +2834,7 @@ GameObject:
   - component: {fileID: 1672504682}
   - component: {fileID: 1672504681}
   m_Layer: 0
-  m_Name: Boti
+  m_Name: ' '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3619,7 +3643,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionPanel: {fileID: 262669445}
   boti: {fileID: 0}
-  timeToSelect: 0.5
+  UiElements: []
+  loadingUI: {fileID: 0}
+  answerStep: {fileID: 0}
+  clock: {fileID: 0}
   scoreText: {fileID: 0}
 --- !u!1001 &1286735287291706883
 PrefabInstance:

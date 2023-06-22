@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cartoon
+  m_Name: Cartoon blue
   m_Shader: {fileID: -6465566751694194690, guid: 87459b88cc0eaff489d2b875c17b8cf9, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseTexture:
-        m_Texture: {fileID: 2800000, guid: dfd012d53b2f94942948ef9b30225563, type: 3}
+        m_Texture: {fileID: 2800000, guid: c16088e16e5f2e545bfe52ffa2929b98, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
