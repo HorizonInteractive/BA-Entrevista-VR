@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
-using System.Xml.Linq;
 
 [Serializable]
 public class QuestionObject
@@ -40,6 +40,23 @@ public class GameManager : MonoBehaviour
     public GameObject[] UiElements;
     public GameObject loadingUI;
 
+    private float totalTime = 45f;
+    private float timeLeft;
+    private bool timeRunning;
+
+    private int answerIndex;
+    private int AnswerIndex
+    {
+        get { return answerIndex; }
+        set { 
+            answerIndex = value;
+            answerStep.text = value.ToString() + "/7";
+        }
+    }
+    public TextMeshProUGUI answerStep;
+
+    public Image clock;
+
     public TextMeshProUGUI scoreText;
     private int score;
     public int Score
@@ -64,6 +81,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        timeLeft = totalTime;
     }
 
     public IEnumerator HideAnswers()
@@ -73,6 +92,7 @@ public class GameManager : MonoBehaviour
             LeanTween.scale(element, Vector3.zero, 0.4f).setEaseOutCubic();
         }
         yield return new WaitForSeconds(0.4f);
+        clock.fillAmount = 1;
         LeanTween.scale(loadingUI, Vector3.one, 0.6f).setEaseOutCubic();
     }
 
@@ -84,6 +104,8 @@ public class GameManager : MonoBehaviour
         {
             LeanTween.scale(button, Vector3.one, 0.6f).setEaseOutCubic();
         }
+        yield return new WaitForSeconds(0.6f);
+        timeRunning = true;
     }
 
     public void InitiateGame()
@@ -101,7 +123,6 @@ public class GameManager : MonoBehaviour
         var parsedQuestions = JsonUtility.FromJson<RootObject>("{\"questions\":" + jsonQuestions.text + "}");
         foreach (var question in parsedQuestions.questions)
         {
-            print(question.category);
             if (!(question.category == SECTION.Generic || question.category == LevelSelection.selectedSection)) continue;
             questions.Enqueue(new Question(question.question, new Answer[] { new Answer(question.right, Type.right), new Answer(question.neutral, Type.neutral), new Answer(question.wrong, Type.wrong)}, question.bonus, question.category));
         }
@@ -112,6 +133,7 @@ public class GameManager : MonoBehaviour
     {
         if (questions.Count > 0)
         {
+            AnswerIndex++;
             questionPanel.Question = questions.Dequeue();
         }
     }
@@ -123,7 +145,27 @@ public class GameManager : MonoBehaviour
     public void ConfirmAnswer()
     {
         if (LeanTween.isTweening(loadingUI) || selectedAnswer == null) return;
+        timeRunning = false;
+        timeLeft = totalTime;
         StartCoroutine(CheckAnswer(selectedAnswer));
+    }
+
+    private void Update()
+    {
+        if (timeRunning)
+        {
+            if(timeLeft <= 0)
+            {
+                timeLeft = totalTime;
+                timeRunning = false;
+                StartCoroutine(CheckAnswer(new Answer("", Type.wrong)));
+            }
+            else
+            {
+                clock.fillAmount = timeLeft / totalTime;
+                timeLeft -= Time.deltaTime;
+            }
+        }
     }
 
     private IEnumerator CheckAnswer(Answer answer)
@@ -136,16 +178,13 @@ public class GameManager : MonoBehaviour
             case Type.right:
                 LeanTween.value(gameObject, setColorCallback, originalColor, Color.green, .5f);
                 Score++;
-                print("Color Green");
                 break;
             case Type.neutral:
                 LeanTween.value(gameObject, setColorCallback, originalColor, Color.blue, .5f);
-                print("Color Blue");
                 Score += 0;
                 break;
             case Type.wrong:
                 LeanTween.value(gameObject, setColorCallback, originalColor, Color.red, .5f);
-                print("Color Red");
                 Score--;
                 break;
             default:
