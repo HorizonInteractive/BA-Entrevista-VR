@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject boti;
     private Material materialBoti;
-    private Color originalColor;
 
     private Queue<Question> questions = new();
 
@@ -71,6 +70,11 @@ public class GameManager : MonoBehaviour
             scoreText.text = score.ToString();
         }
     }
+
+    public GameObject GameCanvas;
+    public GameObject EndCanvas;
+    private int rightCount;
+    public TextMeshProUGUI rightText;
 
     private void Awake()
     {
@@ -117,7 +121,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         materialBoti = boti.GetComponent<Renderer>().material;
-        originalColor = materialBoti.color;
 
         var jsonQuestions = Resources.Load<TextAsset>("questions");
         var parsedQuestions = JsonUtility.FromJson<RootObject>("{\"questions\":" + jsonQuestions.text + "}");
@@ -131,7 +134,14 @@ public class GameManager : MonoBehaviour
 
     public void NextQuestion()
     {
-        if (questions.Count > 0)
+        if (AnswerIndex >= 7)
+        {
+            GameCanvas.SetActive(false);
+            timeRunning = false;
+            EndCanvas.SetActive(true);
+            rightText.text = "Contestaste " + rightCount.ToString() + "/7 preguntas correctamente";
+        }
+        if (questions.Count > 0 && AnswerIndex < 7)
         {
             AnswerIndex++;
             questionPanel.Question = questions.Dequeue();
@@ -176,24 +186,20 @@ public class GameManager : MonoBehaviour
         switch (answer.type)
         {
             case Type.right:
-                LeanTween.value(gameObject, setColorCallback, originalColor, Color.green, .5f);
+                rightCount++;
                 Score++;
                 break;
             case Type.neutral:
-                LeanTween.value(gameObject, setColorCallback, originalColor, Color.blue, .5f);
                 Score += 0;
                 break;
             case Type.wrong:
-                LeanTween.value(gameObject, setColorCallback, originalColor, Color.red, .5f);
                 Score--;
                 break;
             default:
                 break;
         }
         selectedAnswer = null;
-        yield return new WaitForSeconds(3f);
-        LeanTween.value(gameObject, setColorCallback, materialBoti.color, originalColor, .5f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(4f);
         NextQuestion();
     }
 

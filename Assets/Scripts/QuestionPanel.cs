@@ -8,6 +8,7 @@ public class QuestionPanel : MonoBehaviour
 {
     public AnswerButton[] answerButtons;
     public TextMeshProUGUI textUI;
+    public AudioSource voiceAudio;
     private Question question;
     public Question Question
     {
@@ -34,11 +35,13 @@ public class QuestionPanel : MonoBehaviour
         UpdateAnswers();
         LeanTween.scale(gameObject, Vector3.one, 0.5f).setEaseOutCubic();
         yield return new WaitForSeconds(0.4f);
+        voiceAudio.Play();
         foreach (char character in question.description)
         {
             textUI.text += character;
-            yield return new WaitForSeconds(0.10f);
+            yield return new WaitForSeconds(0.05f);
         }
+        voiceAudio.Stop();
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(GameManager.instance.ShowAnswers());
     }
