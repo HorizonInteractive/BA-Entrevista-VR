@@ -27,8 +27,13 @@ public class Assets
     public Color nextButtonColor;
     public Color highlightColor;
     public Color normalColor;
+    public Sprite clockSprite;
+    public Image.FillMethod fillMethod;
+    public Color loadingColor;
+    public Sprite loadingBackground;
+    public Vector3 horizonPosition;
 
-    public Assets(Sprite backgroundSprite, Sprite answerBackground, Color textColor, Color color, Sprite horizonSprite, Sprite nextButtonBackgroundSprite, Color nextButtonColor, Sprite answerHighlight, Color highlightColor, Color normalColor)
+    public Assets(Sprite backgroundSprite, Sprite answerBackground, Color textColor, Color color, Sprite horizonSprite, Sprite nextButtonBackgroundSprite, Color nextButtonColor, Sprite answerHighlight, Color highlightColor, Color normalColor, Sprite clockSprite, Image.FillMethod fillMethod, Color loadingColor, Sprite loadingBackground)
     {
         this.backgroundSprite = backgroundSprite;
         this.answerBackground = answerBackground;
@@ -40,6 +45,10 @@ public class Assets
         this.answerHighlight = answerHighlight;
         this.highlightColor = highlightColor;
         this.normalColor = normalColor;
+        this.clockSprite = clockSprite;
+        this.fillMethod = fillMethod;
+        this.loadingColor = loadingColor;
+        this.loadingBackground = loadingBackground;
     }
 }
 
@@ -77,6 +86,11 @@ public class LevelSelection : MonoBehaviour
     public TextMeshProUGUI nextButtonText;
     public TextMeshProUGUI counter;
     public Image loadingIcon;
+    public Image loadingCircle1;
+    public Image loadingCircle2;
+    public Image loadingCircle3;
+    public Image loadingContainer;
+
 
     public Assets gastronomyAssets;
     public Assets itAssets;
@@ -132,13 +146,20 @@ public class LevelSelection : MonoBehaviour
         answer1Text.color = assets.textColor;
         answer2Text.color = assets.textColor;
         answer3Text.color = assets.textColor;
-        clock.color = assets.color;
+        clock.sprite = assets.clockSprite;
+        clockFill.sprite = assets.clockSprite;
         clockFill.color = assets.color;
+        clockFill.fillMethod = assets.fillMethod;
         horizonLogo.sprite = assets.horizonSprite;
         nextButton.sprite = assets.nextButtonBackgroundSprite;
         nextButtonText.color = assets.nextButtonColor;
         counter.color = assets.color;
-        loadingIcon.color = assets.color;
+        loadingIcon.color = assets.loadingColor;
+        loadingCircle1.color = assets.loadingColor;
+        loadingCircle2.color = assets.loadingColor;
+        loadingCircle3.color = assets.loadingColor;
+        horizonLogo.rectTransform.anchoredPosition = assets.horizonPosition;
+        loadingContainer.sprite = assets.loadingBackground;
     }
 
     private void UpdateColors(Image ImageButton, Color normalColor, Color color)
