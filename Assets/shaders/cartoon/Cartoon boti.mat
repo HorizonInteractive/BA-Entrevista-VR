@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Cartoon boti
   m_Shader: {fileID: -6465566751694194690, guid: 87459b88cc0eaff489d2b875c17b8cf9, type: 3}
-  m_Parent: {fileID: 2100000, guid: b69ae7438436bf749ac89985c5fad827, type: 2}
+  m_Parent: {fileID: 2100000, guid: 8f52082efe94b054e8ac4816a87fb445, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - MAIN_LIGHT_CALCULATE_SHADOWS
