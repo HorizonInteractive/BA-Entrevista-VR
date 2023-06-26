@@ -105,6 +105,7 @@ public class LevelSelection : MonoBehaviour
 
     public void ConfirmSelection()
     {
+        print(selectedSection);
         if (selectedSection == SECTION.Generic) return;
         switch (selectedSection)
         {
