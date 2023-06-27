@@ -26,6 +26,7 @@ Material:
   m_ModifiedSerializedProperties: 24
   m_ValidKeywords:
   - _MAIN_LIGHT_SHADOWS_CASCADE
+  - _RECEIVE_SHADOWS_OFF
   - _SHADOWS_SOFT
   m_InvalidKeywords:
   - MAIN_LIGHT_CALCULATE_SHADOWS

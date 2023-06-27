@@ -1,27 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8438141791029903343
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70afe9e12c7a7ed47911bb608a23a8ff, type: 3}
-  m_Name: SplitToning
-  m_EditorClassIdentifier: 
-  active: 0
-  shadows:
-    m_OverrideState: 1
-    m_Value: {r: 0.17822178, g: 0.3098279, b: 0.4245283, a: 1}
-  highlights:
-    m_OverrideState: 1
-    m_Value: {r: 0.97950613, g: 1, b: 0.7971698, a: 1}
-  balance:
-    m_OverrideState: 1
-    m_Value: 0
 --- !u!114 &-8086209468432435952
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -37,10 +15,10 @@ MonoBehaviour:
   active: 0
   temperature:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 25
   tint:
-    m_OverrideState: 1
-    m_Value: 100
+    m_OverrideState: 0
+    m_Value: 25
 --- !u!114 &-2665761910322045753
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -83,31 +61,7 @@ MonoBehaviour:
   - {fileID: 6538768086779564738}
   - {fileID: 6286830258849028064}
   - {fileID: -2665761910322045753}
-  - {fileID: -8438141791029903343}
   - {fileID: -8086209468432435952}
-  - {fileID: 952486166231582600}
---- !u!114 &952486166231582600
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
-  m_Name: LiftGammaGain
-  m_EditorClassIdentifier: 
-  active: 0
-  lift:
-    m_OverrideState: 1
-    m_Value: {x: 0.9917058, y: 0.9503192, z: 1, w: 0}
-  gamma:
-    m_OverrideState: 1
-    m_Value: {x: 0.8614184, y: 1, z: 0.9075422, w: 0}
-  gain:
-    m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
 --- !u!114 &6286830258849028064
 MonoBehaviour:
   m_ObjectHideFlags: 3

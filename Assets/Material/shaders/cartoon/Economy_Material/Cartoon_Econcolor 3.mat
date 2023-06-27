@@ -37,7 +37,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - MAIN_LIGHT_CALCULATE_SHADOWS: 0
     m_Colors:
     - _BaseColor: {r: 0.6117647, g: 0.8313726, b: 0.654902, a: 1}
   m_BuildTextureStacks: []
