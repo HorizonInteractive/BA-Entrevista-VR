@@ -169,19 +169,19 @@ public class GameManager : MonoBehaviour
             switch (Score)
             {
                 case int n when n < 3 || rightCount < 4:
-                    endText.text = "A volar mi amor, vamos a volar mi amor";
+                    endText.text = "Nosotros te llamamos. Buen viaje.";
                     break;
                 case int n when n == 3 || n ==4:
-                    endText.text = "Ganaste por un pelo, con suerte duras 2 semanas";
+                    endText.text = "Por un momento, pensé que te ibas volando. Bien hecho pero puedes mejorar.";
                     break;
                 case int n when n == 5 || n == 6:
-                    endText.text = "Bien, bien, tenes una idea";
+                    endText.text = "Muy bien, pero podrías hacerlo mejor. Te vamos a dejar en la base de datos.";
                     break;
                 case int n when n == 7 || n == 8:
-                    endText.text = "La re mueve este pibe";
+                    endText.text = "Casi perfecto, te vamos a llamar para otra entrevista. ¡Segui mejorando!";
                     break;
                 case 9:
-                    endText.text = "Na na na na, una eminencia este sujeto";
+                    endText.text = "¡Felicidades! Quedaste contratado.";
                     break;
                 default:
                     break;

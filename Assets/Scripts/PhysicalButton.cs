@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class PhysicalButton : MonoBehaviour
 {
     private Button button;
+    private float timeSinceEnabled;
 
     private void Awake()
     {
@@ -14,8 +15,14 @@ public class PhysicalButton : MonoBehaviour
         //xr = (XRController)FindObjectOfType(typeof(XRController));
     }
 
+    private void Update()
+    {
+        timeSinceEnabled += Time.deltaTime;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
+        if (timeSinceEnabled < 0.3f) return;
         if(!other.isTrigger)
         {
             if (other.transform.parent.TryGetComponent(out ActionBasedController xr))
