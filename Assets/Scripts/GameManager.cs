@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEngine.Audio;
 
 [Serializable]
 public class QuestionObject
@@ -56,7 +57,15 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
     public Animator botiAnim;
-
+    // Particles
+    [SerializeField] ParticleSystem P_Happy;
+    [SerializeField] ParticleSystem P_Confused;
+    [SerializeField] ParticleSystem P_Angry;
+    //Audio Clips
+    [SerializeField] AudioSource C_Happy;
+    [SerializeField] AudioSource C_Confused;
+    [SerializeField] AudioSource C_Angry;
+ 
     private int score;
     public int Score
     {
@@ -71,13 +80,22 @@ public class GameManager : MonoBehaviour
             {
                 case 0:
                     botiAnim.SetTrigger("Confused");
+                    C_Confused.Play();
+                    P_Confused.Play();
                     break;
+
                 case int n when n > 0:
                     botiAnim.SetTrigger("Happy");
+                    C_Happy.Play();
+                    P_Happy.Play();
                     break;
+
                 case int n when n < 0:
                     botiAnim.SetTrigger("Angry");
+                    C_Angry.Play();
+                    P_Angry.Play();
                     break;
+
                 default:
                     break;
             }
@@ -158,6 +176,9 @@ public class GameManager : MonoBehaviour
         NextQuestion();
     }
 
+    [SerializeField] AudioSource C_Win;
+    [SerializeField] AudioSource C_Lose;
+   
     public void NextQuestion()
     {
         if (AnswerIndex >= 7)
@@ -170,6 +191,7 @@ public class GameManager : MonoBehaviour
             {
                 case int n when n < 3 || rightCount < 4:
                     endText.text = "Nosotros te llamamos. Buen viaje.";
+                    C_Lose.Play();
                     break;
                 case int n when n == 3 || n ==4:
                     endText.text = "Por un momento, pensé que te ibas volando. Bien hecho pero puedes mejorar.";
@@ -182,6 +204,7 @@ public class GameManager : MonoBehaviour
                     break;
                 case 9:
                     endText.text = "¡Felicidades! Quedaste contratado.";
+                    C_Win.Play(); 
                     break;
                 default:
                     break;

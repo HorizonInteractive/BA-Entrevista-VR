@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.Audio;
+
 
 public class PhysicalButton : MonoBehaviour
 {
     private Button button;
     private float timeSinceEnabled;
+    [SerializeField] AudioSource C_Click;
 
     private void Awake()
     {
@@ -30,6 +33,7 @@ public class PhysicalButton : MonoBehaviour
                 xr.SendHapticImpulse(0.7f, 0.1f);
                 button.Select();
                 button.onClick.Invoke();
+                C_Click.Play();
             }
         }
     }
