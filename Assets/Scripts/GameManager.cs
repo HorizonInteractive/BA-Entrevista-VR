@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
-using UnityEngine.Audio;
 
 [Serializable]
 public class QuestionObject
@@ -27,6 +26,8 @@ public class RootObject
 
 public class GameManager : MonoBehaviour
 {
+    public Animator chairAnimator;
+
     public static GameManager instance;
 
     public QuestionPanel questionPanel;
@@ -37,6 +38,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] UiElements;
     public GameObject loadingUI;
+
+    private bool isChecking;
 
     private float totalTime = 45f;
     private float timeLeft;
@@ -80,19 +83,19 @@ public class GameManager : MonoBehaviour
             {
                 case 0:
                     botiAnim.SetTrigger("Confused");
-                    C_Confused.Play();
+                    if (C_Confused != null) C_Confused.Play();
                     P_Confused.Play();
                     break;
 
                 case int n when n > 0:
                     botiAnim.SetTrigger("Happy");
-                    C_Happy.Play();
+                    if (C_Happy != null) C_Happy.Play();
                     P_Happy.Play();
                     break;
 
                 case int n when n < 0:
                     botiAnim.SetTrigger("Angry");
-                    C_Angry.Play();
+                    if (C_Angry != null) C_Angry.Play();
                     P_Angry.Play();
                     break;
 
@@ -178,7 +181,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] AudioSource C_Win;
     [SerializeField] AudioSource C_Lose;
-   
+    [SerializeField] AudioSource C_RocketChair;
+
     public void NextQuestion()
     {
         if (AnswerIndex >= 7)
@@ -187,24 +191,30 @@ public class GameManager : MonoBehaviour
             timeRunning = false;
             EndCanvas.SetActive(true);
             rightText.text = rightCount.ToString() + "/7";
+            if(rightCount >= 4 && Score > 3)
+            {
+                botiAnim.SetTrigger("Handshake");
+                if (C_Win != null) C_Win.Play();
+            }
             switch (Score)
             {
                 case int n when n < 3 || rightCount < 4:
                     endText.text = "Nosotros te llamamos. Buen viaje.";
-                    C_Lose.Play();
+                    chairAnimator.SetTrigger("Fly");
+                    if (C_Lose != null)  C_Lose.Play();
+                    if (C_RocketChair != null)  C_RocketChair.Play();
                     break;
-                case int n when n == 3 || n ==4:
-                    endText.text = "Por un momento, pensé que te ibas volando. Bien hecho pero puedes mejorar.";
+                case int n when n == 3 || n == 4:
+                    endText.text = "Casi te vas volando. Bien hecho pero puedes mejorar.";
                     break;
-                case int n when n == 5 || n == 6:
+                case int n when n == 5 || n == 6 || n == 7:
                     endText.text = "Muy bien, pero podrías hacerlo mejor. Te vamos a dejar en la base de datos.";
                     break;
-                case int n when n == 7 || n == 8:
+                case 8:
                     endText.text = "Casi perfecto, te vamos a llamar para otra entrevista. ¡Segui mejorando!";
                     break;
                 case 9:
                     endText.text = "¡Felicidades! Quedaste contratado.";
-                    C_Win.Play(); 
                     break;
                 default:
                     break;
@@ -249,27 +259,32 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CheckAnswer(Answer answer)
     {
-        questionPanel.HideQuestion();
-        StartCoroutine(HideAnswers());
-        yield return new WaitForSeconds(1f);
-        switch (answer.type)
+        if (!isChecking)
         {
-            case Type.right:
-                rightCount++;
-                Score++;
-                break;
-            case Type.neutral:
-                Score += 0;
-                break;
-            case Type.wrong:
-                Score--;
-                break;
-            default:
-                break;
+            isChecking = true;
+            questionPanel.HideQuestion();
+            StartCoroutine(HideAnswers());
+            yield return new WaitForSeconds(1f);
+            switch (answer.type)
+            {
+                case Type.right:
+                    rightCount++;
+                    Score++;
+                    break;
+                case Type.neutral:
+                    Score += 0;
+                    break;
+                case Type.wrong:
+                    Score--;
+                    break;
+                default:
+                    break;
+            }
+            selectedAnswer = null;
+            yield return new WaitForSeconds(4f);
+            NextQuestion();
+            isChecking = false;
         }
-        selectedAnswer = null;
-        yield return new WaitForSeconds(4f);
-        NextQuestion();
     }
 
     //private void setColorCallback(Color c)

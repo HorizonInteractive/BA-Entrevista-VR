@@ -33,7 +33,7 @@ public class PhysicalButton : MonoBehaviour
                 xr.SendHapticImpulse(0.7f, 0.1f);
                 button.Select();
                 button.onClick.Invoke();
-                C_Click.Play();
+                if(C_Click != null) C_Click.Play();
             }
         }
     }
