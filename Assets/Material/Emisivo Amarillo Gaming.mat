@@ -7,12 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Antifaz
+  m_Name: Emisivo Amarillo Gaming
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EMISSION
+  - _RECEIVE_SHADOWS_OFF
   - _SPECULAR_SETUP
   m_InvalidKeywords: []
   m_LightmapFlags: 2
@@ -106,7 +107,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
+    - _ReceiveShadows: 0
     - _Smoothness: 0.487
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -119,7 +120,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 0.9244833, b: 0.4669811, a: 1}
     - _Color: {r: 1, g: 0.9244833, b: 0.46698105, a: 1}
-    - _EmissionColor: {r: 4.594794, g: 3.7591715, b: 1.4521282, a: 1}
+    - _EmissionColor: {r: 1.1622534, g: 0.8582794, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6865583136770150406
