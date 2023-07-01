@@ -7065,7 +7065,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.265
+    m_Strength: 0.376
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -7113,8 +7113,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.61344033, y: 0.18536572, z: 0.11334783, w: 0.75926465}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.4667913, y: 0.03259552, z: 0.25306618, w: 0.8467591}
+  m_LocalPosition: {x: 0, y: 2.258, z: 1.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7123,7 +7123,7 @@ Transform:
   - {fileID: 724323568}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 62.811, y: 66.983, z: 60.976}
+  m_LocalEulerAnglesHint: {x: 50.716, y: 27.408, z: 46.464}
 --- !u!114 &705507996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18648,6 +18648,10 @@ PrefabInstance:
       value: P_Flames (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3026940656838322693, guid: a770878546e96ae4d8b79e83df6feb7d, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3026940656838322693, guid: a770878546e96ae4d8b79e83df6feb7d, type: 3}
       propertyPath: ShapeModule.m_Position.x
       value: 0.000000072989536
       objectReference: {fileID: 0}
@@ -18658,6 +18662,10 @@ PrefabInstance:
     - target: {fileID: 3026940656838322693, guid: a770878546e96ae4d8b79e83df6feb7d, type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6249176089825499495, guid: a770878546e96ae4d8b79e83df6feb7d, type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8608391373798042573, guid: a770878546e96ae4d8b79e83df6feb7d, type: 3}
       propertyPath: m_RootOrder
@@ -21111,6 +21119,10 @@ PrefabInstance:
       value: P_Flames
       objectReference: {fileID: 0}
     - target: {fileID: 3026940656838322693, guid: a770878546e96ae4d8b79e83df6feb7d, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3026940656838322693, guid: a770878546e96ae4d8b79e83df6feb7d, type: 3}
       propertyPath: ShapeModule.m_Position.x
       value: 0.000000004825665
       objectReference: {fileID: 0}
@@ -21121,6 +21133,10 @@ PrefabInstance:
     - target: {fileID: 3026940656838322693, guid: a770878546e96ae4d8b79e83df6feb7d, type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6249176089825499495, guid: a770878546e96ae4d8b79e83df6feb7d, type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8608391373798042573, guid: a770878546e96ae4d8b79e83df6feb7d, type: 3}
       propertyPath: m_RootOrder
@@ -23638,7 +23654,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 26fc779853c432b4e8becf5e66794cab, type: 2}
+  - {fileID: 2100000, guid: 62644a05c6e0b2b4f81d56eedd89fc88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
