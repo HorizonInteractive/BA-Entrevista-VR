@@ -126,6 +126,8 @@ public class GameManager : MonoBehaviour
         timeLeft = totalTime;
     }
 
+    public Color originalColor;
+
     public IEnumerator HideAnswers()
     {
         foreach (GameObject element in UiElements)
@@ -141,6 +143,7 @@ public class GameManager : MonoBehaviour
     {
         LeanTween.scale(loadingUI, Vector3.zero, 0.4f).setEaseOutCubic();
         yield return new WaitForSeconds(0.4f);
+        clock.color = originalColor;
         foreach (GameObject button in UiElements)
         {
             LeanTween.scale(button, Vector3.one, 0.6f).setEaseOutCubic();
@@ -193,8 +196,8 @@ public class GameManager : MonoBehaviour
             rightText.text = rightCount.ToString() + "/7";
             if(rightCount >= 4 && Score > 3)
             {
-                botiAnim.SetTrigger("Handshake");
                 if (C_Win != null) C_Win.Play();
+                StartCoroutine(Win());
             }
             switch (Score)
             {
@@ -227,6 +230,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator Win()
+    {
+        yield return new WaitForSeconds(3);
+        botiAnim.SetTrigger("Handshake");
+    }
+
     public void SelectAnswer(AnswerButton answer) {
         selectedAnswer = answer.Answer;
     }
@@ -251,6 +260,14 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                if (timeLeft < totalTime / 2)
+                {
+                    clock.color = Color.yellow;
+                }
+                if (timeLeft < totalTime / 4)
+                {
+                    clock.color = Color.red;
+                }
                 clock.fillAmount = timeLeft / totalTime;
                 timeLeft -= Time.deltaTime;
             }

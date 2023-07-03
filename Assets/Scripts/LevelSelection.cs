@@ -59,6 +59,8 @@ public class LevelSelection : MonoBehaviour
     public Button continueButton;
     public GameObject gameCanvas;
 
+    public GameObject loadingCanvas;
+
     public GameObject[] gastronomyItems;
     public GameObject[] itItems;
     public GameObject[] economyItems;
@@ -105,8 +107,12 @@ public class LevelSelection : MonoBehaviour
 
     public void ConfirmSelection()
     {
-        print(selectedSection);
-        if (selectedSection == SECTION.Generic) return;
+        StartCoroutine(Loading());
+    }
+
+    private IEnumerator Loading()
+    {
+        if (selectedSection == SECTION.Generic) yield break;
         switch (selectedSection)
         {
             case SECTION.Gastronomy:
@@ -128,7 +134,11 @@ public class LevelSelection : MonoBehaviour
             default:
                 break;
         }
+        loadingCanvas.SetActive(true);
+        yield return new WaitForSeconds(15f);
         gameCanvas.SetActive(true);
+        GameManager.instance.InitiateGame();
+        gameObject.SetActive(false);
         transform.parent.gameObject.SetActive(false);
     }
 
@@ -150,6 +160,7 @@ public class LevelSelection : MonoBehaviour
         clock.sprite = assets.clockSprite;
         clockFill.sprite = assets.clockSprite;
         clockFill.color = assets.color;
+        GameManager.instance.originalColor = assets.color;
         clockFill.fillMethod = assets.fillMethod;
         horizonLogo.sprite = assets.horizonSprite;
         nextButton.sprite = assets.nextButtonBackgroundSprite;
@@ -187,6 +198,5 @@ public class LevelSelection : MonoBehaviour
         {
             item.SetActive(false);
         }
-        GameManager.instance.InitiateGame();
     }
 }
