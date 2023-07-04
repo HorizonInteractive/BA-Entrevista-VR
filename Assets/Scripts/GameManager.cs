@@ -26,6 +26,8 @@ public class RootObject
 
 public class GameManager : MonoBehaviour
 {
+    public string Email;
+
     public Animator chairAnimator;
 
     public static GameManager instance;
@@ -190,6 +192,7 @@ public class GameManager : MonoBehaviour
     {
         if (AnswerIndex >= 7)
         {
+            WriterCSV.WriteFile(Email, rightCount);
             GameCanvas.SetActive(false);
             timeRunning = false;
             EndCanvas.SetActive(true);
@@ -232,7 +235,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Win()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         botiAnim.SetTrigger("Handshake");
     }
 

@@ -7,6 +7,7 @@ public class Handshake : MonoBehaviour
 {
     public GameObject target;
     public GameObject endCanvas;
+    public Animator animator;
 
     private void Update()
     {
@@ -23,6 +24,7 @@ public class Handshake : MonoBehaviour
         {
             if (other.transform.parent.TryGetComponent(out ActionBasedController xr))
             {
+                animator.SetTrigger("MoveHead");
                 StartCoroutine(TriggerEnd());
                 xr.SendHapticImpulse(0.7f, 0.1f);
                 target = other.transform.parent.gameObject;

@@ -6,6 +6,7 @@ public class Tutorial : MonoBehaviour
 {
     public GameObject tutorial1;
     public GameObject tutorial2;
+    public GameObject tutorial3;
     public GameObject tutorialCanvas;
     public GameObject game;
 
@@ -13,6 +14,12 @@ public class Tutorial : MonoBehaviour
     {
         tutorial1.SetActive(false);
         tutorial2.SetActive(true);
+    }
+
+    public void Continue2()
+    {
+        tutorial2.SetActive(false);
+        tutorial3.SetActive(true);
     }
 
     public void Finish()

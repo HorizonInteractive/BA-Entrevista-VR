@@ -17,6 +17,7 @@ public enum SECTION
 [Serializable]
 public class Assets
 {
+
     public Sprite backgroundSprite;
     public Sprite answerBackground;
     public Sprite answerHighlight;
@@ -54,6 +55,7 @@ public class Assets
 
 public class LevelSelection : MonoBehaviour
 {
+    public Animator anim;
 
     public GameObject[] genericItems;
     public Button continueButton;
@@ -135,7 +137,9 @@ public class LevelSelection : MonoBehaviour
                 break;
         }
         loadingCanvas.SetActive(true);
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(17f);
+        anim.SetTrigger("Assemble");
+        yield return new WaitForSeconds(4f);
         gameCanvas.SetActive(true);
         GameManager.instance.InitiateGame();
         gameObject.SetActive(false);
