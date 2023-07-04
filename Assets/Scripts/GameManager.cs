@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject GameCanvas;
     public GameObject EndCanvas;
+    public GameObject HandshakeCanvas;
     private int rightCount;
     public TextMeshProUGUI rightText;
     public TextMeshProUGUI endText;
@@ -235,7 +236,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Win()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
+        EndCanvas.transform.GetChild(0).gameObject.SetActive(false);
+        HandshakeCanvas.SetActive(true);
+        yield return new WaitForSeconds(3);
         botiAnim.SetTrigger("Handshake");
     }
 
