@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 
+
 [Serializable]
 public class QuestionObject
 {
@@ -233,7 +234,11 @@ public class GameManager : MonoBehaviour
             questionPanel.Question = questions.Dequeue();
         }
     }
-
+    private IEnumerator Inactivity()
+    {
+        yield return new WaitForSeconds(15);
+        FindObjectOfType<Endgame>().EnableEndCanvas();
+    }
     private IEnumerator Win()
     {
         yield return new WaitForSeconds(3);
@@ -241,6 +246,8 @@ public class GameManager : MonoBehaviour
         HandshakeCanvas.SetActive(true);
         yield return new WaitForSeconds(3);
         botiAnim.SetTrigger("Handshake");
+        StartCoroutine(Inactivity());
+        
     }
 
     public void SelectAnswer(AnswerButton answer) {

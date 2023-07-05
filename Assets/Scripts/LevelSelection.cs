@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public enum SECTION
 {
@@ -111,7 +112,8 @@ public class LevelSelection : MonoBehaviour
     {
         StartCoroutine(Loading());
     }
-
+ 
+    [SerializeField] AudioSource C_Assemble;
     private IEnumerator Loading()
     {
         if (selectedSection == SECTION.Generic) yield break;
@@ -139,6 +141,8 @@ public class LevelSelection : MonoBehaviour
         loadingCanvas.SetActive(true);
         yield return new WaitForSeconds(17f);
         anim.SetTrigger("Assemble");
+        if (C_Assemble != null) C_Assemble.Play();
+
         yield return new WaitForSeconds(4f);
         gameCanvas.SetActive(true);
         GameManager.instance.InitiateGame();
